@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>soundscape</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <h1>press button to listen sounds</h1>
+    <div class="button-container">
+        <button class="btn1" onclick="playSound(0)">Go to the beach</button>
+        <button class="btn2" onclick="playSound(1)">There's a flock of sheep passing by you</button>
+        <button class="btn3" onclick="playSound(2)">The wind is whispering</button>
+        <button class="btn4" onclick="playSound(3)">Night with fireflies</button>
+    </div>
+
+    <script>
+        // 加载音频文件
+        const sounds = [
+            new Audio("ocean-waves.wav"), // 请替换成你的音频文件
+            new Audio("sheep.wav"),
+            new Audio("wind.wav"),
+            new Audio("night.wav"),
+            new Audio("backgroundmusic 2.mp3")
+        ];
+
+
+        function playSound(index) {
+            // 停止所有音乐
+            sounds.forEach(sound => {
+                sound.pause();
+                sound.currentTime = 0;
+            });
+
+            // 试图播放选中的音乐
+            sounds[index].play().catch(error => console.log("播放失败，可能是浏览器限制：", error));
+        }
+
+        // 处理自动播放的背景音乐
+        document.addEventListener("click", function () {
+            const backgroundMusic = new Audio("backgroundmusic 2.mp3");
+            backgroundMusic.loop = true;
+            backgroundMusic.volume = 0.2;
+            backgroundMusic.play().catch(error => console.log("自动播放被阻止", error));
+        }, { once: true });
+
+
+
+    </script>
+
+</body>
+</html>
